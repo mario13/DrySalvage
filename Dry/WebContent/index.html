@@ -1,0 +1,418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript" src="scripts/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="scripts/jquery.sizes.js"></script>
+<script type="text/javascript" src="scripts/jlayout.grid.js"></script>
+<script type="text/javascript" src="scripts/jquery.jlayout.js"></script>
+<script type="text/javascript" src="scripts/jQueryRotateCompressed.2.2.js"></script>
+<script type="text/javascript" src="scripts/buzz.js"></script>
+<script type="text/javascript" src="scripts/jwplayer/jwplayer.js"></script>
+<script type="text/javascript">jwplayer.key="ct+rKGY50q8UC1BXTgvqHTSLFRmHmUYQqGzJfA==";</script>
+
+<style type="text/css">
+#canvas {list-style-type: none; margin: 0; padding: 0; width: 450px;}
+.horizontal-flip {
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}
+
+.flip-and-rotate{
+    transform: rotate(180deg) scaleX(-1);
+}
+
+.box{
+    width: 147px;
+    height: 197px;
+    position: relative;
+}
+
+.box img {       
+        width: inherit;
+        height:inherit;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    
+ .box div {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: inherit;
+        height:inherit;
+ }
+</style>
+
+</head>
+<body>
+<div id="canvas" class="grid" style="width: 60%; margin: 0px auto;"></div>
+  
+<!--   <img class="product-img" src="1.PNG" alt="products name" id="test"> -->
+<!--   <button id="btn">rotate and mirror</button> -->
+<!--   <button id="btn2">remove mirror</button> -->
+<!--   <button id="btn3">rotate again</button> -->
+<!--   <button id="btn4">original</button> -->
+
+<!-- <div id="video-element"></div> -->
+  <script type="text/javascript">
+  
+      var cols = 6;
+      
+      var currentIndex = 0;
+      
+      var cmj = new buzz.sound("chords/1/Cmj", {formats: ["ogg", "mp3"]}),
+          cdmj = new buzz.sound("chords/2/Cdmj", {formats: ["ogg", "mp3"]}),
+          dmj = new buzz.sound("chords/3/Dmj", {formats: ["ogg", "mp3"]}),
+          ddmj = new buzz.sound("chords/4/Ddmj", {formats: ["ogg", "mp3"]}),
+          emj = new buzz.sound("chords/5/Emj", {formats: ["ogg", "mp3"]}),
+          fmj = new buzz.sound("chords/6/Fmj", {formats: ["ogg", "mp3"]}),
+          fdmj = new buzz.sound("chords/7/Fdmj", {formats: ["ogg", "mp3"]}),
+          gmj = new buzz.sound("chords/8/Gmj", {formats: ["ogg", "mp3"]}),
+          gdmj = new buzz.sound("chords/9/Gdmj", {formats: ["ogg", "mp3"]}),
+          amj = new buzz.sound("chords/10/Amj", {formats: ["ogg", "mp3"]}),
+          admj = new buzz.sound("chords/11/Admj", {formats: ["ogg", "mp3"]}),
+          bmj = new buzz.sound("chords/12/Bmj", {formats: ["ogg", "mp3"]}),
+          cmn = new buzz.sound("chords/1/Cmn", {formats: ["ogg", "mp3"]}),
+          cdmn = new buzz.sound("chords/2/Cdmn", {formats: ["ogg", "mp3"]}),
+          dmn = new buzz.sound("chords/3/Dmn", {formats: ["ogg", "mp3"]}),
+          ddmn = new buzz.sound("chords/4/Ddmn", {formats: ["ogg", "mp3"]}),
+          emn = new buzz.sound("chords/5/Emn", {formats: ["ogg", "mp3"]}),
+          fmn = new buzz.sound("chords/6/Fmn", {formats: ["ogg", "mp3"]}),
+          fdmn = new buzz.sound("chords/7/Fdmn", {formats: ["ogg", "mp3"]}),
+          gmn = new buzz.sound("chords/8/Gmn", {formats: ["ogg", "mp3"]}),
+          gdmn = new buzz.sound("chords/9/Gdmn", {formats: ["ogg", "mp3"]}),
+          amn = new buzz.sound("chords/10/Amn", {formats: ["ogg", "mp3"]}),
+          admn = new buzz.sound("chords/11/Admn", {formats: ["ogg", "mp3"]}),
+          bmn = new buzz.sound("chords/12/Bmn", {formats: ["ogg", "mp3"]}),
+          caug = new buzz.sound("chords/1/Caug", {formats: ["ogg", "mp3"]}),
+          cdaug = new buzz.sound("chords/2/Cdaug", {formats: ["ogg", "mp3"]}),
+          daug = new buzz.sound("chords/3/Daug", {formats: ["ogg", "mp3"]}),
+          ddaug = new buzz.sound("chords/4/Ddaug", {formats: ["ogg", "mp3"]}),
+          eaug = new buzz.sound("chords/5/Eaug", {formats: ["ogg", "mp3"]}),
+          faug = new buzz.sound("chords/6/Faug", {formats: ["ogg", "mp3"]}),
+          fdaug = new buzz.sound("chords/7/Fdaug", {formats: ["ogg", "mp3"]}),
+          gaug = new buzz.sound("chords/8/Gaug", {formats: ["ogg", "mp3"]}),
+          gdaug = new buzz.sound("chords/9/Gdaug", {formats: ["ogg", "mp3"]}),
+          aaug = new buzz.sound("chords/10/Aaug", {formats: ["ogg", "mp3"]}),
+          adaug = new buzz.sound("chords/11/Adaug", {formats: ["ogg", "mp3"]}),
+          baug = new buzz.sound("chords/12/Baug", {formats: ["ogg", "mp3"]}),
+          cdim = new buzz.sound("chords/1/Cdim", {formats: ["ogg", "mp3"]}),
+          cddim = new buzz.sound("chords/2/Cddim", {formats: ["ogg", "mp3"]}),
+          ddim = new buzz.sound("chords/3/Ddim", {formats: ["ogg", "mp3"]}),
+          dddim = new buzz.sound("chords/4/Dddim", {formats: ["ogg", "mp3"]}),
+          edim = new buzz.sound("chords/5/Edim", {formats: ["ogg", "mp3"]}),
+          fdim = new buzz.sound("chords/6/Fdim", {formats: ["ogg", "mp3"]}),
+          fddim = new buzz.sound("chords/7/Fddim", {formats: ["ogg", "mp3"]}),
+          gdim = new buzz.sound("chords/8/Gdim", {formats: ["ogg", "mp3"]}),
+          gddim = new buzz.sound("chords/9/Gddim", {formats: ["ogg", "mp3"]}),
+          adim = new buzz.sound("chords/10/Adim", {formats: ["ogg", "mp3"]}),
+          addim = new buzz.sound("chords/11/Addim", {formats: ["ogg", "mp3"]}),
+          bdim = new buzz.sound("chords/12/Bdim", {formats: ["ogg", "mp3"]});
+      
+      //chords
+      var chords = [{mj: cmj, mn: cmn, aug: caug, dim: cdim},
+                    {mj: cdmj, mn: cdmn, aug: cdaug, dim: cddim},
+                    {mj: dmj, mn: dmn, aug: daug, dim: ddim},
+                    {mj: ddmj, mn: ddmn, aug: ddaug, dim: dddim},
+                    {mj: emj, mn: emn, aug: eaug, dim: edim},
+                    {mj: fmj, mn: fmn, aug: faug, dim: fdim},
+                    {mj: fdmj, mn: fdmn, aug: fdaug, dim: fddim},
+                    {mj: gmj, mn: gmn, aug: gaug, dim: gdim},
+                    {mj: gdmj, mn: gdmn, aug: gdaug, dim: gddim},
+                    {mj: amj, mn: amn, aug: aaug, dim: adim},
+                    {mj: admj, mn: admn, aug: adaug, dim: addim},
+                    {mj: bmj, mn: bmn, aug: baug, dim: bdim}];
+      
+      //var soundsArray = [cmj, cdmj, dmj, ddmj,
+       //                  emj, fmj, fdmj, gmj,
+        //                 gdmj, amj, admj, bmj];
+      
+      
+      //status: 'default', 'flip', 'mirror', 'flipmirror'
+      var tracker = [{pos: 1, status: 'default'},
+                     {pos: 2, status: 'default'},
+                     {pos: 3, status: 'default'},
+                     {pos: 4, status: 'default'},
+                     {pos: 5, status: 'default'},
+                     {pos: 6, status: 'default'},
+                     {pos: 7, status: 'default'},
+                     {pos: 8, status: 'default'},
+                     {pos: 9, status: 'default'},
+                     {pos: 10, status: 'default'},
+                     {pos: 11, status: 'default'},
+                     {pos: 12, status: 'default'}];
+      
+      var interval = null;
+      
+      //var test = new buzz.sound("chords/ACDC_-_Back_In_Black-sample.ogg"); 
+          
+      $(document).ready(function()
+      {
+       for (var i=1; i<13; i++)
+          $("#canvas").append("<div class='box'><img src='drysalvage/drysalvager" + i + ".jpg' ></div>");  
+        
+        $('#canvas').layout(
+            {
+              type: 'grid',
+              columns: cols,
+              hgap: 0,
+              vgap: 0
+            }
+        );
+         
+       playSound();
+       interval = setInterval(playSound, 2000);
+       
+//        jwplayer("video-element").setup({
+//          file: "videos/Viktor1.m4v",
+//          height: 197,
+//          width: 148,
+//          controls: false,
+//          stretching: 'fill'
+//      });
+       
+        $("#btn3").on('click', function() {                  
+          $("#test").attr("class", "horizontal-flip");
+          $("#test").attr("style", "");
+      });
+       
+        $("#btn2").on('click', function()
+        {       
+          $("#test").attr("class", "");
+          $("#test").attr("style", "");
+          $("#test").rotate({animateTo:180});
+        });
+        
+          $("#btn").on('click', function() {
+            $("#test").attr("style", "");
+            $("#test").removeClass().addClass("flip-and-rotate");
+            //$("#test").rotate({animateTo:360});
+        });
+          
+          $("#btn4").on('click', function()
+              {                  
+                $("#test").attr("class", "");
+                $("#test").attr("style", "");
+              });  
+          
+      });
+      
+   //   function rotate_and_flip(prop,x){
+     //   $(prop).css('transform', 'rotate('+ x +'deg) scaleX(-1)');
+      // }
+      
+      function test()
+      {
+        cdaug.play();
+      }
+      
+      function playSound()
+      {
+        
+        if(currentIndex < tracker.length)
+        {
+          var sound = null;
+          var mod = tracker[currentIndex];
+          var chord = chords[mod.pos - 1];
+          
+          switch(mod.status)
+          {
+            case 'flip':
+              sound = chord.dim;
+              break;
+            case 'mirror':
+              sound = chord.mn;
+              break;
+            case 'flipmirror':
+              sound = chord.aug;
+              break;
+            default:
+             sound = chord.mj;
+          }
+          
+          //sound.bindOnce("ended", playSound);
+          if(currentIndex == tracker.length - 1)
+          {
+            clearInterval(interval);
+            sound.bindOnce("ended", animate);
+          }
+          
+          //console.log("index: " + currentIndex);
+          //console.log("playing: " + sound.sound.currentSrc);
+          sound.play();
+          currentIndex++;
+        }
+        //else
+          //animate();
+        
+      }
+      
+      function animate()
+      {
+      //get a random number up to 20
+        var moveRandom = Math.floor(Math.random() * 15);
+        //var moveRandom = 19;
+        //console.log('animate: ' + moveRandom);
+      
+        //33% switch 2 random images
+        if(moveRandom < 5)
+        {
+          
+          var item1 = Math.floor(Math.random() * 12);
+          var item2 = Math.floor(Math.random() * 12);
+          
+          //ensure the two images are not the same
+          while(item1 == item2)
+            item2 = Math.floor(Math.random() * 12);
+          
+          var t1 = $("#canvas div:nth-child(" + (item1 + 1) + ") img");
+       //   console.log(item1);
+      //    console.log(t1);
+          var t2 = $("#canvas div:nth-child(" + (item2 + 1)+ ") img");
+       //   console.log(item2);
+       //   console.log(t2);
+          
+          var src1 = t1.attr("src");
+          var src2 = t2.attr("src");
+          
+          t1.attr("src", src2);
+          t2.attr("src", src1);
+          
+          var mod1 = tracker[item1];
+          var mod2 = tracker[item2];
+          
+          tracker.splice(item1, 1, mod2);
+          tracker.splice(item2, 1, mod1);
+          
+          //console.log(item1 + " replaced with " + item2);
+        }
+        //33% flip a random image
+        else if(moveRandom >=5  && moveRandom < 10)
+        {
+          
+          var num = Math.floor(Math.random() * 12);
+          var img = $("#canvas div:nth-child(" + (num + 1) + ") img");
+          
+          //'flip', 'mirror', 'flipmirror'
+          
+          var toStatus = 'flip';
+          switch(tracker[num].status)
+          {
+            case 'flip':
+              img.rotate({animateTo:360});
+              toStatus = 'default';
+              break;
+            case 'mirror':
+              img.attr("style", "");
+              img.removeClass().addClass("flip-and-rotate");
+              toStatus = 'flipmirror';
+              break;
+            case 'flipmirror':
+              img.attr("style", "");
+              img.attr("class", "horizontal-flip");
+              toStatus = 'mirror';
+              break;
+            default:
+              img.rotate({animateTo:180});
+          }
+          
+          tracker[num].status = toStatus;
+          
+         // console.log(num + " flipped");
+          //var toSound = chords[num].mn;
+          
+          //if(soundsArray[num] == chords[num].mn)
+            //toSound = chords[num].mj;
+          
+          //soundsArray.splice(num, 1, toSound);
+        }
+        //33% mirror a random image
+        else
+        {
+          var num = Math.floor(Math.random() * 12);
+          var img = $("#canvas div:nth-child(" + (num + 1) + ") img");
+          
+          var toStatus = 'mirror';
+          switch(tracker[num].status)
+          {
+            case 'flip':
+              img.attr("style", "");
+              img.removeClass().addClass("flip-and-rotate");
+              toStatus = 'flipmirror';
+              break;
+            case 'mirror':
+              img.attr("class", "");
+              toStatus = 'default';
+              break;
+            case 'flipmirror':
+              img.attr("class", "");
+              img.attr("style", "");
+              img.rotate({animateTo:180});
+              toStatus = 'flip';
+              break;
+            default:
+              img.attr("style", "");
+              img.attr("class", "horizontal-flip");
+          }
+          
+          tracker[num].status = toStatus;
+          
+         // console.log(num + "mirrored");
+        /*  var num = Math.floor(Math.random() * 12);
+          console.log(num);
+          var item = $("#canvas div:nth-child(" + (num + 1) + ")");
+          console.log(item);
+          item.append("<div id='video-element' style='dipslay: none'></div>");
+          console.log(item);
+          var itemImg = $("#canvas div:nth-child(" + (num + 1) + ") img");
+          console.log(itemImg);
+          itemImg.animate({opacity: 0.2}, 1000);
+          jwplayer("video-element").setup({
+            file: "videos/Viktor1.m4v",
+            height: 197,
+            width: 148,
+            controls: false,
+            stretching: 'fill'
+            });
+          
+          jwplayer("video-element").play(true);*/
+//           if(cols == 6)
+//           {
+//             cols = 4;
+//           }
+//           else
+//           {
+//             cols = 6;
+//           }
+
+//           $('#canvas').layout(
+//               {
+//                 type: 'grid',
+//                 columns: cols
+//               }
+//           );
+
+          
+        }
+        
+        play();
+      }
+      
+      function play()
+      {
+        //console.log(tracker);
+        currentIndex = 0;
+        playSound();
+        interval = setInterval(playSound, 2000);
+      }
+  </script>
+
+</body>
+</html>
